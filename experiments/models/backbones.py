@@ -2,16 +2,15 @@ import math
 import torch
 import torch.nn as nn
 import numpy as np
-from performer_pytorch import Performer
 from linformer import Linformer
 from nystrom_attention import Nystromformer
 from reformer_pytorch import Reformer
-from poolformer import PoolFormer
+from .poolformer import PoolFormer
 # from Luna_nn import Luna
 # from S4_model import *
 from torch.nn import TransformerEncoder, TransformerEncoderLayer
-from kernel_transformer import Kernel_transformer
-from chordmixer_block import ChordMixerBlock
+from .kernel_transformer import Kernel_transformer
+from .chordmixer_block import ChordMixerBlock
 
 class ChordMixerNet(nn.Module):
     def __init__(self,
@@ -118,61 +117,6 @@ class TransformerModel(nn.Module):
             positions = torch.arange(0, self.n_vec).expand(x.size(0), self.n_vec).to(self.device)
             x = self.posenc(positions) + x
             x = self.transformer_encoder(x)
-            if self.pooling == 'avg':
-                x = torch.mean(x, 1)
-            elif self.pooling == 'cls':
-                x = x[:, 0, :]
-            x = self.final(x.view(x.size(0), -1))
-        return x
-
-
-class PerformerModel(nn.Module):
-    def __init__(self,
-     vocab_size,
-     dim,
-     heads,
-     depth,
-     n_vec,
-     n_class,
-     problem,
-     pooling,
-     device
-     ):
-        super(PerformerModel, self).__init__()
-        self.device = device
-        self.n_vec = n_vec
-        self.encoder = nn.Embedding(vocab_size, dim)
-        self.posenc = nn.Embedding(n_vec, dim)
-        self.performer = Performer(
-            dim = dim,
-            depth=depth,
-            heads = heads,
-            dim_head=dim,
-            causal = True
-        )
-        self.n_vew = n_vec
-        self.pooling = pooling
-        self.final = nn.Linear(dim, n_class)
-        if self.pooling == 'flatten':
-            print('FLATTEN')
-            self.final = nn.Linear(dim*n_vec, n_class)
-        self.problem = problem
-        self.linear = nn.Linear(2, dim, bias=True)
-
-    def forward(self, x):
-        if self.problem == "adding":
-            x = self.linear(x)
-            x = self.performer(x)
-            if self.pooling == 'avg':
-                x = torch.mean(x, 1)
-            elif self.pooling == 'cls':
-                x = x[:, 0, :]
-            x = self.final(x.view(x.size(0), -1))
-        else:
-            x = self.encoder(x)
-            positions = torch.arange(0, self.n_vec).expand(x.size(0), self.n_vec).to(self.device)
-            x = self.posenc(positions) + x
-            x = self.performer(x)
             if self.pooling == 'avg':
                 x = torch.mean(x, 1)
             elif self.pooling == 'cls':

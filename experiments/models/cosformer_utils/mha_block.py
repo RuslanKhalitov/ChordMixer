@@ -1,4 +1,4 @@
-from cosformer_utils.mha import MHA
+from .mha import MHA
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

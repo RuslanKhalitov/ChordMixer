@@ -5,6 +5,7 @@ import logging
 import argparse
 import torch
 from models.utils import get_logger, seed_everything, init_weights
+from models.backbones import ChordMixerNet, TransformerModel, LinformerModel, ReformerModel, NystromformerModel, PoolformerModel, CosformerModel
 
 # Read arguments
 parser = argparse.ArgumentParser(description="experiments")
