@@ -1,0 +1,119 @@
+---
+adding: 
+  '200': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        n_layers: 2
+        n_heads: 4
+        embedding_size: 128
+        hidden_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      linformer:
+        n_layers: 2
+        n_heads: 4
+        hidden_size: 128
+      performer:
+        n_layers: 2
+        n_heads: 4
+        hidden_size: 128
+  '1000': 
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+  '16000': 
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+  '128000': 
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+genbank: 
+  sus_bos:
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+  carassius_labeo:
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+  mus_rattus:
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+  danio_cyprinus:
+    transformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    linformer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+    performer:
+      n_layers: 2
+      n_heads: 4
+      hidden_size: 128
+  
