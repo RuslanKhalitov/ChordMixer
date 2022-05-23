@@ -76,7 +76,6 @@ def generator(base_length):
     n_train_seq = 50000 if base_length < 10**5 else 10000
     n_val_seq = 5000 if base_length < 10**5 else 1000
     n_test_seq = 5000 if base_length < 10**5 else 1000
-    
 
     # from our experiments
     boundaries = {
