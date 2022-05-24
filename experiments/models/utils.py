@@ -32,7 +32,11 @@ def seed_everything(seed=1234):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
 
-def get_logger(args, training_config, model_config):
+def count_params(net):
+    n_params = sum(p.numel() for p in net.parameters() if p.requires_grad)
+    return n_params
+
+def get_logger(args):
     if args.logger == 'file':
         filename = f'{args.problem_class}_{args.problem}_{args.model}.txt'
         os.makedirs("logfiles", exist_ok=True)

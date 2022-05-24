@@ -98,7 +98,6 @@ class TransformerModel(nn.Module):
         self.pooling = pooling
         self.final = nn.Linear(dim, n_class)
         if self.pooling == 'flatten':
-            print('FLATTEN')
             self.final = nn.Linear(dim*n_vec, n_class)
         self.problem = problem
         self.linear = nn.Linear(2, dim, bias=True)
@@ -153,8 +152,7 @@ class LinformerModel(nn.Module):
         self.pooling = pooling
         self.n_vec = n_vec
         self.final = nn.Linear(dim, n_class)
-        if self.pooling == 'flatten':
-            print('FLATTEN')
+        if self.pooling == 'flatten':         
             self.final = nn.Linear(dim*n_vec, n_class)
         self.problem = problem
         self.linear = nn.Linear(2, dim, bias=True)
@@ -208,7 +206,6 @@ class ReformerModel(nn.Module):
         self.pooling = pooling
         self.final = nn.Linear(dim, n_class)
         if self.pooling == 'flatten':
-            print('FLATTEN')
             self.final = nn.Linear(dim*n_vec, n_class)
         self.problem = problem
         self.linear = nn.Linear(2, dim, bias=True)
@@ -251,7 +248,7 @@ class NystromformerModel(nn.Module):
         self.device = device
         self.encoder = nn.Embedding(vocab_size, dim)
         self.posenc = nn.Embedding(n_vec, dim)
-        self.nystromformer = Nystromer(
+        self.nystromformer = Nystromformer(
             dim=dim,
             dim_head=int(dim/heads),
             heads=heads,
@@ -263,7 +260,6 @@ class NystromformerModel(nn.Module):
         self.pooling = pooling
         self.final = nn.Linear(dim, n_class)
         if self.pooling == 'flatten':
-            print('FLATTEN')
             self.final = nn.Linear(dim*n_vec, n_class)
         self.problem = problem
         self.linear = nn.Linear(2, dim, bias=True)
@@ -312,7 +308,6 @@ class PoolformerModel(nn.Module):
         self.pooling = pooling
         self.final = nn.Linear(dim, n_class)
         if self.pooling == 'flatten':
-            print('FLATTEN')
             self.final = nn.Linear(dim*n_vec, n_class)
         self.problem = problem
         self.linear = nn.Linear(2, dim, bias=True)
@@ -380,7 +375,6 @@ class CosformerModel(nn.Module):
         self.pooling = pooling
         self.final = nn.Linear(dim, n_class)
         if self.pooling == 'flatten':
-            print('FLATTEN')
             self.final = nn.Linear(dim*n_vec, n_class)
         self.problem = problem
         self.device = device

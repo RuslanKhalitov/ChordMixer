@@ -1,4 +1,5 @@
 ---
+
 adding: 
   '200': 
     training:
@@ -6,63 +7,404 @@ adding:
       n_class: 1
       n_epochs: 25
     models:
+      chordmixer:
+        vocab_size: 1
+        one_track_size: 16
+        max_seq_len: 6700
+        mlp_cfg: [128, 'GELU']
+        dropout_p: 0
+        n_class: 1
       transformer:
         pooling: flatten
         truncation: False
         segmented: False
+        vocab_size: 1
         n_layers: 2
         n_heads: 4
+        n_class: 1
         embedding_size: 128
-        hidden_size: 128
         learning_rate: 0.0001
         batch_size: 10
       linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
         n_layers: 2
         n_heads: 4
-        hidden_size: 128
-      performer:
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
         n_layers: 2
         n_heads: 4
-        hidden_size: 128
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
   '1000': 
-    transformer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-    linformer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-    performer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-  '16000': 
-    transformer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-    linformer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-    performer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-  '128000': 
-    transformer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-    linformer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
-    performer:
-      n_layers: 2
-      n_heads: 4
-      hidden_size: 128
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        one_track_size: 16
+        max_seq_len: 6700
+        mlp_cfg: [128, 'GELU']
+        dropout_p: 0
+        n_class: 1
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+ '16000': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        one_track_size: 16
+        max_seq_len: 6700
+        mlp_cfg: [128, 'GELU']
+        dropout_p: 0
+        n_class: 1
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+ '128000': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        one_track_size: 16
+        max_seq_len: 6700
+        mlp_cfg: [128, 'GELU']
+        dropout_p: 0
+        n_class: 1
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        n_class: 1
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
 genbank: 
   sus_bos:
     transformer:
