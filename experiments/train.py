@@ -4,8 +4,12 @@ import yaml
 import logging
 import argparse
 import torch
-from models.utils import get_logger, seed_everything, count_params, init_weights
-from models.backbones import ChordMixerNet, TransformerModel, LinformerModel, ReformerModel, NystromformerModel, PoolformerModel, CosformerModel
+import pandas as pd
+from models.utils import get_logger, seed_everything, count_params, \
+    init_weights, dataset_preparation, tasks_genbank
+    
+from models.backbones import ChordMixerNet, TransformerModel, LinformerModel, \
+     ReformerModel, NystromformerModel, PoolformerModel, CosformerModel
 
 # Read arguments
 parser = argparse.ArgumentParser(description="experiments")
@@ -40,6 +44,22 @@ seed_everything(2022)
 # Setting device
 torch.cuda.set_device(args.device_id)
 device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu'
+
+# Reading the data and setting the dataloaders
+if args.problem_class == 'genbank':
+    data_all = pd.read_csv('data/genbank_{classes[0]}_{classes[1]}_data.csv')
+    data_train, data_test, data_val = dataset_preparation(
+        truncate=model_config['truncation'],
+        data_all=data_all,
+        classes=tasks_genbank[args.problem],
+        minimum_seq_len=2**5,
+        maximum_seq_len=2**18,
+        save_test_lengths=True
+    )
+elif args.problem_class == 'adding':
+    pass
+elif args.problem_class == 'longdoc':
+    pass
 
 # Init model
 model = args.model

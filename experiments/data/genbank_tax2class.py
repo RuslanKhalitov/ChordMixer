@@ -42,4 +42,4 @@ for task in tasks.keys():
     df_rest = df[df['genus'].isin([classes])]
     df_rest.reset_index(inplace=True)
     df_rest = df_rest[df_rest['log_lengths'] <= 18]
-    df_rest[['index', 'genus']].to_csv(f'{classes[0]}_{classes[1]}_idxs.csv', index=False)
+    df_rest[['index', 'genus']].to_csv(f'genbank_{classes[0]}_{classes[1]}_idxs.csv', index=False)

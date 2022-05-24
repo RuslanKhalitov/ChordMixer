@@ -62,4 +62,4 @@ for task in tasks.keys():
     df = pd.read_csv(f'{classes[0]}_{classes[1]}_idxs.csv')
     path_to = f"./{category}/raw/"
     all_df = parse_category_special(df, path_to)
-    all_df.to_csv(f'{classes[0]}_{classes[1]}_final.csv', index=False)
+    all_df.to_csv(f'genbank_{classes[0]}_{classes[1]}_data.csv', index=False)

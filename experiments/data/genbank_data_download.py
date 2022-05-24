@@ -11,11 +11,12 @@ prefix = {
     'Other vertebrate': 'gbvrt'
 }
 
-n_seq = [688, 488, 116, 728, 56, 77, 375, 277]  # Date: 16.02.2022
+# Date: accessed on 16.02.2022
+n_seq = [688, 488, 116, 728, 56, 77, 375, 277]  
 
-category = 'Rodent'
-for i in range(len(n_seq)):
-    fi = i + 1
-    cmd = "wget -P '%s/raw' https://ftp.ncbi.nih.gov/genbank/%s%d.seq.gz" % (category, prefix[category], fi)
-    print(cmd)
-    os.system(cmd)
+for category in prefix.keys():
+    for i in range(len(n_seq)):
+        fi = i + 1
+        cmd = "wget -P '%s/raw' https://ftp.ncbi.nih.gov/genbank/%s%d.seq.gz" % (category, prefix[category], fi)
+        print(cmd)
+        os.system(cmd)
