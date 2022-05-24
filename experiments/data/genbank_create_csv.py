@@ -33,7 +33,6 @@ tasks = {
 }
 
 
-
 def parse_category_special(df, path_to):
     """
     Iteratively parses all raw files of the category 
