@@ -4,10 +4,6 @@ import pickle5 as pickle
 from Bio import GenBank
 import pandas as pd
 from tqdm import tqdm
-# df = pd.read_csv('chordmixer/Canis_Ovis_final.csv')
-
-# glob.glob("%s/%s/raw/*.seq.gz" % (genbank_path, category))
-category = 'Other vertebrate'
 
 tasks = {
     'Carassius vs. Labeo':
@@ -38,6 +34,10 @@ tasks = {
 
 
 def parse_category_special(df, path_to):
+    """
+    Iteratively parses all raw files of the category 
+    and saves sequences with the relevant indices
+    """
     files = glob.glob(f"{path_to}/*.seq.gz")
     n_file = len(files)
     seqs = []
