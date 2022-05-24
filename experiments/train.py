@@ -44,19 +44,6 @@ device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu
 # Init model
 model = args.model
 
-if model == "transformer":
-    net = TransformerModel
-elif model == 'linformer':
-    net = LinformerModel
-elif model == 'reformer':
-    net = ReformerModel
-elif model == 'nystromformer':
-    net = NystromformerModel
-elif model == 'poolformer':
-    net = PoolformerModel
-elif model == 'cosformer':
-    net = CosformerModel
-
 if model == 'chordmixer':
     net = ChordMixerNet(
         vocab_size=model_config.vocab_size,
@@ -96,6 +83,7 @@ else:
 net = net.to(device)
 net.apply(init_weights)
 print('Number of trainable parameters', count_params(net))
+
 
 
 
