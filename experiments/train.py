@@ -29,16 +29,16 @@ args = parser.parse_args()
 
 # Parsing training config
 stream = open("config.yaml", 'r')
-cfg_yaml = yaml.load(stream)[args.problem_class][args.problem]
+cfg_yaml = yaml.safe_load(stream)[args.problem_class][args.problem]
 training_config = cfg_yaml['training']
 model_config = cfg_yaml['models'][args.model]
-model = args.model
+model = args.model  
 
 print('training config:', training_config)
 print('model config:', model_config)
 
 # Setting logger
-loginf = get_logger(args, training_config, model_config)
+loginf = get_logger(args)
 
 loginf('training_config')
 loginf(training_config)

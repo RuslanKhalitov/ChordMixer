@@ -281,7 +281,7 @@ adding:
         embedding_size: 32
         learning_rate: 0.0005
         batch_size: 5
- '128000': 
+  '128000': 
     training:
       loss: mse
       n_class: 1
