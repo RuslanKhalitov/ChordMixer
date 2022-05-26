@@ -52,6 +52,33 @@ def get_logger(args):
         pass
 
 
+tasks_genbank = {
+    'Carassius vs. Labeo':
+        {
+            'classes': ['Carassius', 'Labeo'],
+            'category_name': 'Other vertebrate',
+            'name_raw': 'gbvrt'
+        },
+    'Danio vs. Cyprinus':
+        {
+            'classes': ['Danio', 'Cyprinus'],
+            'category_name': 'Other vertebrate',
+            'name_raw': 'gbvrt'
+        },
+    'Mus vs. Rattus':
+        {
+            'classes': ['Mus', 'Rattus'],
+            'category_name': 'Rodent',
+            'name_raw': 'gbrod'
+        },
+    'Sus vs. Bos':
+        {
+            'classes': ['Sus', 'Bos'],
+            'category_name': 'Other mammalian',
+            'name_raw': 'gbmam'
+        },
+}
+
 gen_dict = {'A': 0, 'C': 1, 'G': 2, 'T': 3, 'N': 4, 'Y': 5, 'R': 6, 'M': 7, 'W': 8, 'K': 9, 'S': 10, 'B': 11, 'H': 12, 'D': 13, 'V': 14}
 
 def dataset_preparation(data_all, classes, truncate, minimum_seq_len, maximum_seq_len, save_test_lengths):
