@@ -9,7 +9,7 @@ import torch.nn as nn
 import os
 import argparse
 
-from s4_src import *
+from .s4_src import *
 from tqdm.auto import tqdm
 
 class S4Model(nn.Module):

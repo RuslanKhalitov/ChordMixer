@@ -1,9 +1,13 @@
 import torch
+import os
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
         
+# Please download articles from 
+# https://github.com/LiqunW/Long-document-dataset
+# and put them to the /data folder
 
 def build_dataset():
     """

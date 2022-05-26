@@ -23,8 +23,8 @@
 import torch
 import torch.nn as nn
 
-from luna_transformer.attention import LinearUnifiedNestedAttention
-from luna_transformer.feed_forward import PositionwiseFeedForwardNetwork
+from .attention import LinearUnifiedNestedAttention
+from .feed_forward import PositionwiseFeedForwardNetwork
 
 
 class LunaTransformerEncoderLayer(nn.Module):

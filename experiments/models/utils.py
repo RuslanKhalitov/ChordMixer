@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+from torch.utils.data import Dataset
 import logging
 import os
 import wandb
@@ -81,7 +82,7 @@ tasks_genbank = {
 
 gen_dict = {'A': 0, 'C': 1, 'G': 2, 'T': 3, 'N': 4, 'Y': 5, 'R': 6, 'M': 7, 'W': 8, 'K': 9, 'S': 10, 'B': 11, 'H': 12, 'D': 13, 'V': 14}
 
-def dataset_preparation(data_all, classes, truncate, minimum_seq_len, maximum_seq_len, save_test_lengths):
+def genbank_dataset_preparation(data_all, classes, pad, minimum_seq_len, maximum_seq_len, save_test_lengths):
     data_all['len'] =  data_all['sequence'].apply(lambda x: len(x))
     data_all = data_all[(data_all['len'] >= minimum_seq_len) & (data_all['len'] <= maximum_seq_len)]
     data_all = data_all[data_all['genus'].isin(classes)]
@@ -89,48 +90,150 @@ def dataset_preparation(data_all, classes, truncate, minimum_seq_len, maximum_se
     # if config['truncated_len']:
     #     data_all['sequence'] = data_all['sequence'].apply(lambda x: x[:config['truncated_len']])
     data_all['sequence'] = data_all['sequence'].apply(lambda x: [gen_dict[i] for i in x])
-    if truncate is not None:
-        def padder(one_sequence, truncate):
+    max_len_observed = max(data_all['len'])
+    if pad:
+        def padder(one_sequence):
             l = len(one_sequence)
-            if l >= truncate:
-                return one_sequence
-            else:
-                n_pad = truncate - l
-                return np.pad(
-                    array=one_sequence,
-                    mode='constant',
-                    pad_width=(0, n_pad),
-                    constant_values=15
-                )
+            n_pad = max_len_observed - l
+            return np.pad(
+                array=one_sequence,
+                mode='constant',
+                pad_width=(0, n_pad),
+                constant_values=15
+            )
 
         data_all['sequence'] = data_all['sequence'].apply(padder)
+
     data_train, data_test = train_test_split(data_all, test_size=0.2, stratify=data_all['genus'])
     data_train, data_val = train_test_split(data_train, test_size=0.2, stratify=data_train['genus'])
     if save_test_lengths:
         data_test[['len']].to_csv(f'genbank_{classes[0]}_{classes[1]}_test_length.csv', index=False)
     del(data_train['len'], data_test['len'],  data_val['len'])
-    return data_train, data_test, data_val
+    return data_train, data_test, data_val, max_len_observed
+
+def adding_dataset_preparation(problem):
+    data_train = torch.load(f'data/adding_{problem}_train.pt')
+    labels_train = torch.load(f'data/adding_{problem}_train_target.pt')
+    lengths_train_data = pd.read_csv(f'data/adding_{problem}_lengths_train.pt')
+    max_len_observed = max(lengths_train_data['lengths'])
+
+    data_val = torch.load(f'data/adding_{problem}_val.pt')
+    labels_val = torch.load(f'data/adding_{problem}_val_target.pt')
+    lengths_val_data = pd.read_csv(f'data/adding_{problem}_lengths_val.pt')
+
+    data_test = torch.load(f'data/adding_{problem}_test.pt')
+    labels_test = torch.load(f'data/adding_{problem}_test_target.pt')
+    lengths_test_data = pd.read_csv(f'data/adding_{problem}_lengths_test.pt')
+    return data_train, labels_train, lengths_train_data, \
+        data_val, labels_val, lengths_val_data, \
+        data_test, labels_test, lengths_test_data, max_len_observed
+
+def longdoc_dataset_preparation():
+    data_train = torch.load('data/long_document_max_train.pt').to(torch.int64)
+    labels_train = torch.load('data/long_document_max_train_targets.pt').to(torch.int64)
+
+    data_test = torch.load('data/long_document_max_test.pt').to(torch.int64)
+    labels_test = torch.load('data/long_document_max_test_targets.pt').to(torch.int64)
+
+    data_val = torch.load('data/long_document_max_val.pt').to(torch.int64)
+    labels_val = torch.load('data/long_document_max_val_targets.pt').to(torch.int64)
+    return data_train, labels_train, data_test, labels_test, data_val, labels_val
+
+class GenbankDatasetCreator(Dataset):
+    """
+    Class to construct a dataset for training/inference
+    """
+
+    def __init__(self, df):
+        self.df = df
+
+    def __getitem__(self, index):
+        """
+        Returns: tuple (sample, target)
+        """
+        _, Y, X = self.df.iloc[index, :]
+
+        Y = torch.tensor(Y)
+        X = torch.from_numpy(np.array(X))
+        return (X, Y)
+
+    def __len__(self):
+        return len(self.df)
+
+
+class AddingDatasetCreator(Dataset):
+    """
+    Class to construct a dataset for training/inference
+    """
+
+    def __init__(self, data, labels, lengths, model):
+        self.data = data
+        self.labels = labels
+        self.lengths = lengths
+        self.model = model
+
+    def __getitem__(self, index):
+        """
+        Returns: tuple (sample, target)
+        """
+        X = self.data[index]
+        if self.model == 'chordmixer':
+            l = self.lengths.iloc[index, 0]
+            X = X[:l]
+        Y = self.labels[index]
+        return (X, Y)
+
+    def __len__(self):
+        return len(self.labels)
+
+
+class LongdocDatasetCreator(Dataset):
+    """
+    Class to construct a dataset for training/inference
+    """
+
+    def __init__(self, data, labels, model):
+        self.data = data
+        self.labels = labels
+        self.model = model
+
+    def __getitem__(self, index):
+        """
+        Returns: tuple (sample, target)
+        """
+        X = self.data[index]
+        if self.model == 'chordmixer':
+            # filter out PAD values
+            X = X[X!=4289]
+        Y = self.labels[index].to(dtype=torch.long)
+        return (X, Y)
+
+    def __len__(self):
+        return len(self.labels)
 
 
 def TrainModels(
-        net,
-        device,
-        trainloader,
-        valloader,
-        testloader,
-        n_epochs,
-        test_freq,
-        optimizer,
-        loss,
-        metric,
-        segment_size,
-        config
+    net,
+    device,
+    trainloader,
+    valloader,
+    testloader,
+    optimizer,
+    loss,
+    args,
+    model_cfg,
+    loginf,
+    metric,
+    n_epochs,
+    test_freq,
 ):
+    problem = args.problem_class
     testing_dict = {'gt': [], 'pred': [], 'epoch': [], 'lengths': []}
-    if config['problem'] == 'adding':
-        lengths = pd.read_csv(f"../../../../data/shuttlenet/genbank/adding_lengths_{config['how_long']}.csv")['lengths']
-    else:
-        lengths =  pd.read_csv(f"../../../../data/shuttlenet/genbank/test_length_{config['naming']}.csv")['len']
+    if problem == 'adding':
+        lengths = pd.read_csv(f"data/adding_{args.problem}_lengths_test.csv")['lengths']
+    elif problem == 'genbank':
+        classes = tasks_genbank[args.problem]
+        lengths =  pd.read_csv(f"data/genbank_{classes[0]}_{classes[1]}_test_length.csv")['len']
     for epoch in range(n_epochs):
         # Training
         train_loss = 0.
@@ -145,16 +248,16 @@ def TrainModels(
             train_loss += output.item()
 
             optimizer.step()
-            _, predicted = pred.max(1)
 
         t_end = datetime.now()
 
-        print("Epoch {} - Training loss:  {} — Time:  {}sec".format(
+        msg = "Epoch {} - Training loss:  {} — Time:  {}sec".format(
             epoch,
             train_loss / len(trainloader),
             (t_end - t_start).total_seconds()
             )
-        )
+        print(msg)
+        loginf(msg)
         
         # Validation
         if epoch % test_freq == 0:
@@ -175,11 +278,10 @@ def TrainModels(
                     val_loss += output.item()
                     _, predicted = pred.max(1)
                     total_val += Y.size(0)
-                    if config['problem'] == 'genbank':
-                        correct_val += predicted.eq(Y).sum().item()
-                    elif config['problem'] == 'adding':
+                    if problem == 'adding':
                         correct_val += (torch.abs(pred.squeeze() - Y) < 0.04).sum()
-                        predicted = pred.squeeze()
+                    else:
+                        correct_val += predicted.eq(Y).sum().item()
 
                 # Testing loop
                 for idx, (X, Y) in enumerate(testloader):
@@ -191,39 +293,47 @@ def TrainModels(
 
                     _, predicted = pred.max(1)
                     total_test += Y.size(0)
-                    if config['problem'] == 'genbank':
-                        correct_test += predicted.eq(Y).sum().item()
-                    elif config['problem'] == 'adding':
+                        
+                    if problem == 'adding':
                         correct_test += (torch.abs(pred.squeeze() - Y) < 0.04).sum()
-                        predicted = pred.squeeze()
+                    else:
+                        correct_test += predicted.eq(Y).sum().item()
 
 
                     testing_dict['gt'].extend(Y.detach().cpu().numpy())
                     testing_dict['pred'].extend(predicted.detach().cpu().numpy())
                     testing_dict['epoch'].extend([epoch for _ in range(Y.size(0))])
-            lengths_epoch = lengths[:(len(testloader) * config['batch_size'])]
+
+            lengths_epoch = lengths[:(len(testloader) * model_cfg['batch_size'])]
             testing_dict['lengths'].extend(lengths_epoch)
             testing_df = pd.DataFrame(testing_dict)
-            testing_df.to_csv(f'{config["naming"]}_testing_df.csv', index=False)
+            testing_df.to_csv(f'{problem}_testing_df.csv', index=False)
 
-            print("Val  loss: {}".format(val_loss / len(valloader)))
-            print("Test loss: {}".format(test_loss / len(testloader)))
+            msg = "Val loss: {}".format(val_loss / len(valloader))
+            print(msg)
+            loginf(msg)
+            msg = "Test loss: {}".format(test_loss / len(testloader))
+            print(msg)
+            loginf(msg)
+            
             accuracy_val = 100.*correct_val/total_val
             accuracy_test = 100.*correct_test/total_test
-            print("Val  accuracy: {}".format(accuracy_val))
-            print("Test accuracy: {}".format(accuracy_test))
-            if config['use_wandb']:
-                wandb.log({"test_loss": test_loss / len(valloader)})
-                wandb.log({"val_loss": val_loss / len(valloader)})
-                wandb.log({"val_acc": accuracy_val})
-                wandb.log({"test_acc": accuracy_test})
+            msg = "Val  accuracy: {}".format(accuracy_val)
+            print(msg)
+            loginf(msg)
+            msg = "Test accuracy: {}".format(accuracy_test)
+            print(msg)
+            loginf(msg)
 
-            
+            loginf({"test_loss": test_loss / len(valloader)})
+            loginf({"val_loss": val_loss / len(valloader)})
+            loginf({"val_acc": accuracy_val})
+            loginf({"test_acc": accuracy_test})
+
             if metric == 'rocauc':
                 epoch_df_test = testing_df[testing_df['epoch'] == epoch]
                 roc_test = 100.*roc_auc_score(list(epoch_df_test['gt']), list(epoch_df_test['pred']))
-                if config['use_wandb']:
-                    wandb.log({"test_roc_auc": roc_test})
+                loginf({"test_roc_auc": roc_test})
 
             print('_' * 40)
             net.train()

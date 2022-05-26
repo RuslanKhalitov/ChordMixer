@@ -5,12 +5,12 @@ import numpy as np
 from linformer import Linformer
 from nystrom_attention import Nystromformer
 from reformer_pytorch import Reformer
-from poolformer import PoolFormer
-from Luna_nn import Luna
+from .poolformer import PoolFormer
+from .Luna_nn import Luna
 from torch.nn import TransformerEncoder, TransformerEncoderLayer
-from kernel_transformer import Kernel_transformer
-from chordmixer_block import ChordMixerBlock
-from S4_model import S4Model
+from .kernel_transformer import Kernel_transformer
+from .chordmixer_block import ChordMixerBlock
+from .S4_model import S4Model
 
 class ChordMixerNet(nn.Module):
     def __init__(self,
