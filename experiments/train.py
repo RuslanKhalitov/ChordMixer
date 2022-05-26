@@ -9,7 +9,8 @@ from models.utils import get_logger, seed_everything, count_params, \
     init_weights, dataset_preparation, tasks_genbank
     
 from models.backbones import ChordMixerNet, TransformerModel, LinformerModel, \
-     ReformerModel, NystromformerModel, PoolformerModel, CosformerModel
+     ReformerModel, NystromformerModel, PoolformerModel, CosformerModel, \
+     LunaModel, S4_Model
 
 # Read arguments
 parser = argparse.ArgumentParser(description="experiments")
@@ -87,6 +88,10 @@ else:
         net = PoolformerModel
     elif model == 'cosformer':
         net = CosformerModel
+    elif model == 'luna':
+        net = LunaModel
+    elif model == 's4':
+        net = S4_Model
     net = net(
         vocab_size=model_config.vocab_size,
         dim=model_config.embedding_size,

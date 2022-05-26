@@ -4,9 +4,9 @@ import math
 import torch
 import torch.nn as nn
 
-from .luna_transformer.embedding import PositionalEncoding
-from .luna_transformer.encoder import LunaTransformerEncoderLayer
-from .luna_transformer.mask import get_attn_pad_mask
+from luna_transformer.embedding import PositionalEncoding
+from luna_transformer.encoder import LunaTransformerEncoderLayer
+from luna_transformer.mask import get_attn_pad_mask
 
 
 class Luna(nn.Module):

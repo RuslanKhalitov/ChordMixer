@@ -5,12 +5,12 @@ import numpy as np
 from linformer import Linformer
 from nystrom_attention import Nystromformer
 from reformer_pytorch import Reformer
-from .poolformer import PoolFormer
-# from Luna_nn import Luna
-# from S4_model import *
+from poolformer import PoolFormer
+from Luna_nn import Luna
 from torch.nn import TransformerEncoder, TransformerEncoderLayer
-from .kernel_transformer import Kernel_transformer
-from .chordmixer_block import ChordMixerBlock
+from kernel_transformer import Kernel_transformer
+from chordmixer_block import ChordMixerBlock
+from S4_model import S4Model
 
 class ChordMixerNet(nn.Module):
     def __init__(self,
@@ -399,3 +399,98 @@ class CosformerModel(nn.Module):
             x = self.final(x.view(x.size(0), -1))
         return x
 
+class S4_Model(nn.Module):
+    def __init__(self,
+     vocab_size,
+     dim,
+     heads,
+     depth,
+     n_vec,
+     n_class,
+     problem,
+     pooling,
+     device
+     ):
+        super(S4_Model, self).__init__()
+        self.device = device
+        self.n_vec = int(n_vec)
+        self.encoder = nn.Embedding(vocab_size,  dim)
+        self.posenc = nn.Embedding(n_vec, dim)
+        self.s4 = S4Model(
+            d_input=dim, 
+            d_output=n_class, 
+            d_model=dim, 
+            n_layers=depth, 
+            dropout=0.)
+        self.pooling = pooling
+        self.final = nn.Linear(dim, n_class)
+        if self.pooling == 'flatten':
+            self.final = nn.Linear(dim*n_vec, n_class)
+        self.problem = problem
+        self.linear = nn.Linear(2, dim, bias=True)
+
+    def forward(self, x):
+        if self.problem == "adding":
+            x = self.linear(x)
+            x = self.s4(x)
+            if self.pooling == 'avg':
+                x = torch.mean(x, 1)
+            elif self.pooling == 'cls':
+                x = x[:, 0, :]
+        else:
+            x = self.encoder(x).squeeze(-2)
+            positions = torch.arange(0, self.n_vec).expand(x.size(0), self.n_vec).to(self.device)
+            x = self.posenc(positions) + x
+            x = self.s4(x)
+            if self.pooling == 'avg':
+                x = torch.mean(x, 1)
+            elif self.pooling == 'cls':
+                x = x[:, 0, :]
+            x = self.final(x.view(x.size(0), -1))
+        return x
+
+class LunaModel(nn.Module):
+    def __init__(self,
+     vocab_size,
+     dim,
+     heads,
+     depth,
+     n_vec,
+     n_class,
+     problem,
+     pooling,
+     device
+     ):
+        super(LunaModel, self).__init__()
+        self.device = device
+        self.encoder = nn.Embedding(vocab_size, dim)
+        self.posenc = nn.Embedding(n_vec, dim)
+        self.luna = Luna(vocab_size, dim, depth, heads, max_length=n_vec)
+        self.pooling = pooling
+        self.n_vec = n_vec
+        self.final = nn.Linear(dim, n_class)
+        if self.pooling == 'flatten':         
+            self.final = nn.Linear(dim*n_vec, n_class)
+        self.problem = problem
+        self.linear = nn.Linear(2, dim, bias=True)
+
+    def forward(self, x):
+        if self.problem == "adding":
+            x = self.linear(x)
+            x = self.luna(x)
+            if self.pooling == 'avg':
+                x = torch.mean(x, 1)
+            elif self.pooling == 'cls':
+                x = x[:, 0, :]
+            x = self.final(x.view(x.size(0), -1))
+        else:
+            x = self.encoder(x)
+            positions = torch.arange(0, self.n_vec).expand(x.size(0), self.n_vec).to(self.device)
+            x = self.posenc(positions) + x
+            x = self.luna(x)
+            if self.pooling == 'avg':
+                x = torch.mean(x, 1)
+            elif self.pooling == 'cls':
+                x = x[:, 0, :]
+            x = self.final(x.view(x.size(0), -1))
+        return x

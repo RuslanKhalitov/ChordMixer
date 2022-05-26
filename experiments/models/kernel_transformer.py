@@ -3,8 +3,8 @@
 # https://github.com/davidsvy/cosformer-pytorch
 
 import math
-from .cosformer_utils.mha_block import MHA_block, MHA_block_rezero
-from .cosformer_utils.utils import Positional_embeddings
+from cosformer_utils.mha_block import MHA_block, MHA_block_rezero
+from cosformer_utils.utils import Positional_embeddings
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
