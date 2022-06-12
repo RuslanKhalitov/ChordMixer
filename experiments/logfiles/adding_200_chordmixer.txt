@@ -1,0 +1,5 @@
+./logfiles/adding_200_chordmixer.txt
+training_config
+{'loss': 'mse', 'n_class': 1, 'n_epochs': 25}
+model_config
+{'vocab_size': 1, 'truncation': False, 'one_track_size': 16, 'mlp_cfg': [128, 'GELU'], 'dropout_p': 0, 'learning_rate': 0.0001, 'batch_size': 1}

@@ -1,5 +1,0 @@
-./logfiles/adding_200_transformer.txt
-training_config
-{'loss': 'mse', 'n_class': 1, 'n_epochs': 25}
-model_config
-{'pooling': 'flatten', 'truncation': False, 'segmented': False, 'n_layers': 2, 'n_heads': 4, 'embedding_size': 128, 'hidden_size': 128, 'learning_rate': 0.0001, 'batch_size': 10}
