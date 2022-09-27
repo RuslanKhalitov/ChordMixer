@@ -55,20 +55,22 @@ class SplitAndMix(nn.Module):
         '''
         # Split on individual tensors
         # (sum(lengths), emb_size)
+        # print('SM module: init size', data.size())
         ys = torch.split(
             tensor=data,
             split_size_or_sections=lengths,
             dim=0
         )
+        # print('SM module: individ seq size', [i.size() for i in ys])
         # [[lengths[0], emb_size], [lengths[1], emb_size], ..., [lengths[N], emb_size]]
 
         # Roll each sequence individually
         zs = []
         for y in ys:
-            print("sequence size:", y.size())
+
             # Split on tracks
             y = torch.split(
-                tensor=data,
+                tensor=y,
                 split_size_or_sections=self.one_track_size,
                 dim=-1
             )
@@ -81,10 +83,12 @@ class SplitAndMix(nn.Module):
 
             # Concat
             z = torch.cat(z, -1)
+            # print('z size', z.size())
             zs.append(z)
 
         #Concat rolled sequences to a batch
         zs = torch.cat(zs, 0)
+        # print('sizes comparison:', zs.size(), data.size())
         assert data.shape == zs.shape, "In and Out Tensors don't match"
         return zs
 
