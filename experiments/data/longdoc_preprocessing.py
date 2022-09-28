@@ -3,12 +3,40 @@ import pandas as pd
 import numpy as np
 from torch.utils.data import Dataset
 from sklearn.model_selection import train_test_split
-
+import requests
+import os 
 
 config = {
     'max_seq_len': 131000,
     'vocab_size': 3574
 }
+
+# You can use this function to download rar files from github
+"""
+def download_data():
+    for filename_rar in ['cs.AI.rar', 'cs.NE.rar', 'math.AC.rar', 'math.GR.rar']:
+        url = f'https://github.com/LiqunW/Long-document-dataset/raw/master/{filename_rar}'
+        r = requests.get(url, allow_redirects=True)
+        open('data/{filename_rar}', 'wb').write(r.content)
+"""
+
+def convert_data():
+    """
+    loads academic papers from .txt
+    and converts to .csv files
+    """
+    directory = os.path.normpath("data")
+    dirs = [x[0] for x in os.walk(directory)][1:]
+    for dir in dirs:
+        df = pd.DataFrame(columns=['content', 'label'])
+        for filename in os.listdir(dir):
+            with open(os.path.join(dir, filename), 'r') as f:
+                text = f.read().replace('\n', '')
+                df = df.append({'content': text, 'label': dir[-5:]}, ignore_index=True)
+                f.close()
+        print(df.shape)
+        df.to_csv(dir+".csv", index=False)
+
 
 def dataset_preparation(config):
     # Read the source articles
@@ -30,9 +58,6 @@ def dataset_preparation(config):
     bin_labels = [i for i in range(len(bins) - 1)]
     longdoc_df['bin'] = pd.cut(longdoc_df['len'], bins=bins, labels=bin_labels)
 
-    # cut documents with more than 131k symbols
-    # longdoc_df['content'] = longdoc_df['content'].apply(lambda x: x[:config['max_seq_len']])
-    # longdoc_df['len'] = longdoc_df['content'].apply(lambda x: len(x))
     print('max seq length:', max(longdoc_df['len']))
     
     # Create the vocabs
@@ -55,12 +80,15 @@ def dataset_preparation(config):
     return data_train, data_test
 
 
-data_train, data_test = dataset_preparation(
-    config=config
-)
+if __name__ == "__main__":
+    convert_data()
 
-data_train.to_pickle('longdoc_train_removed.pkl')
-# data_val.to_pickle('longdoc_val.pkl')
-data_test.to_pickle('longdoc_test_removed.pkl')
+    data_train, data_test = dataset_preparation(
+        config=config
+    )
+
+    data_train.to_pickle('longdoc_train.pkl')
+    # data_val.to_pickle('longdoc_val.pkl')
+    data_test.to_pickle('longdoc_test.pkl')
 
 
