@@ -7,12 +7,13 @@ adding:
     models:
       chordmixer:
         vocab_size: 1
-        truncation: False
-        one_track_size: 16
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       transformer:
         pooling: flatten
         truncation: False
@@ -101,12 +102,13 @@ adding:
     models:
       chordmixer:
         vocab_size: 1
-        truncation: False
-        one_track_size: 16
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       transformer:
         pooling: flatten
         truncation: False
@@ -195,10 +197,11 @@ adding:
     models:
       chordmixer:
         vocab_size: 1
-        truncation: False
-        one_track_size: 16
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
         batch_size: 1
       transformer:
@@ -289,10 +292,11 @@ adding:
     models:
       chordmixer:
         vocab_size: 1
-        truncation: False
-        one_track_size: 16
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
         batch_size: 1
       transformer:
@@ -304,7 +308,7 @@ adding:
         n_heads: 4
         embedding_size: 64
         learning_rate: 0.0005
-        batch_size: 5
+        batch_size: 1
       linformer:
         pooling: flatten
         truncation: False
@@ -314,7 +318,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0001
-        batch_size: 10
+        batch_size: 1
       reformer:
         pooling: flatten
         truncation: False
@@ -324,7 +328,7 @@ adding:
         n_heads: 2
         embedding_size: 64
         learning_rate: 0.0003
-        batch_size: 10
+        batch_size: 1
       cosformer:
         pooling: flatten
         truncation: False
@@ -334,7 +338,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 5
+        batch_size: 1
       poolformer:
         pooling: flatten
         truncation: False
@@ -354,7 +358,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0002
-        batch_size: 5
+        batch_size: 1
       S4:
         pooling: flatten
         truncation: False
@@ -364,7 +368,7 @@ adding:
         n_heads: 1
         embedding_size: 32
         learning_rate: 0.0005
-        batch_size: 5
+        batch_size: 1
       luna:
         pooling: flatten
         truncation: False
@@ -374,7 +378,7 @@ adding:
         n_heads: 1
         embedding_size: 32
         learning_rate: 0.0005
-        batch_size: 5
+        batch_size: 1
 genbank: 
   Sus vs. Bos:
     training:
@@ -384,12 +388,13 @@ genbank:
     models:
       chordmixer:
         vocab_size: 20
-        truncation: False
-        one_track_size: 12
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       transformer:
         pooling: flatten
         truncation: 16000
@@ -458,12 +463,13 @@ genbank:
     models:
       chordmixer:
         vocab_size: 20
-        truncation: False
-        one_track_size: 12
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       transformer:
         pooling: flatten
         truncation: 16000
@@ -532,12 +538,13 @@ genbank:
     models:
       chordmixer:
         vocab_size: 20
-        truncation: False
-        one_track_size: 12
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       transformer:
         pooling: flatten
         truncation: 16000
@@ -606,12 +613,13 @@ genbank:
     models:
       chordmixer:
         vocab_size: 20
-        truncation: False
-        one_track_size: 16
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       transformer:
         pooling: flatten
         truncation: 16000
@@ -681,12 +689,13 @@ longdoc:
     models:
       chordmixer:
         vocab_size: 4289
-        truncation: False
-        one_track_size: 16
-        mlp_cfg: [128, 'GELU']
-        dropout_p: 0
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
         learning_rate: 0.0001
-        batch_size: 1
+        batch_size: 2
       cosformer:
         pooling: flatten
         truncation: False

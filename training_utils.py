@@ -61,8 +61,7 @@ def train_epoch(config, net, optimizer, loss, trainloader, device, log_every=50,
 
     total_loss = running_loss / num_batches
     print(f'Training loss after epoch: {total_loss}')
-    if config['use_wandb']:
-        wandb.log({'train loss': total_loss})
+    wandb.log({'train loss': total_loss})
 
 def eval_model(config, net, valloader, metric, device) -> float:
     net.eval()
@@ -94,9 +93,8 @@ def eval_model(config, net, valloader, metric, device) -> float:
         wandb.log(scores_dict)
 
 
-    if config['use_wandb']:
-        percentile_scores(results)
-        wandb.log({'test metric': total_metric})
+    percentile_scores(results)
+    wandb.log({'test metric': total_metric})
 
     return total_metric
 

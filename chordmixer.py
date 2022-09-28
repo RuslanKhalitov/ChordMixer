@@ -116,8 +116,7 @@ class ChordMixerNet(nn.Module):
         hidden_size,
         mlp_dropout,
         layer_dropout,
-        n_class,
-        head
+        n_class
         ):
             super(ChordMixerNet, self).__init__()
             self.max_n_layers = math.ceil(np.log2(max_seq_len))

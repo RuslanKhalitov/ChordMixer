@@ -35,16 +35,22 @@ def init_weights(m):
         m.bias.data.fill_(0.01)
 
 
-def train_epoch(config, net, optimizer, loss, trainloader, device, log_every=50, scheduler=None):
+def train_epoch(config, net, optimizer, loss, trainloader, device, log_every=50, scheduler=None, problem=None):
     net.train()
     running_loss = 0.0
     n_items_processed = 0
     num_batches = len(trainloader)
     for idx, (X, Y, length, bin) in tqdm(enumerate(trainloader), total=num_batches):
-        X = X.to(device)
-        Y = Y.to(device)
-        output = net(X, length)
-        output = loss(output, Y)
+        if problem == 'adding':
+            X = X.float().to(device)
+            Y = Y.float().to(device)
+            output = net(X, length).squeeze()
+            output = loss(output, Y)
+        else:
+            X = X.to(device)
+            Y = Y.to(device)            
+            output = net(X, length)
+            output = loss(output, Y)
 
         output.backward()
         optimizer.step()
@@ -61,10 +67,9 @@ def train_epoch(config, net, optimizer, loss, trainloader, device, log_every=50,
 
     total_loss = running_loss / num_batches
     print(f'Training loss after epoch: {total_loss}')
-    if config['use_wandb']:
-        wandb.log({'train loss': total_loss})
+    wandb.log({'train loss': total_loss})
 
-def eval_model(config, net, valloader, metric, device) -> float:
+def eval_model(config, net, valloader, metric, device, problem) -> float:
     net.eval()
 
     preds = []
@@ -73,10 +78,17 @@ def eval_model(config, net, valloader, metric, device) -> float:
 
     num_batches = len(valloader)
     for idx, (X, Y, length, bin) in tqdm(enumerate(valloader), total=num_batches, position=0, leave=True, ascii=False):
-        X = X.to(device)
-        Y = Y.to(device)
-        output = net(X, length)
-        _, predicted = output.max(1)
+        if problem == 'adding':
+            X = X.float().to(device)
+            Y = Y.float().to(device)
+            output = net(X, length).squeeze()
+            predicted = output
+        else:
+            X = X.to(device)
+            Y = Y.to(device)  
+            output = net(X, length) 
+            _, predicted = output.max(1)
+        
         targets.extend(Y.detach().cpu().numpy().flatten())
         preds.extend(predicted.detach().cpu().numpy().flatten())
         bins.extend(bin)
@@ -94,9 +106,8 @@ def eval_model(config, net, valloader, metric, device) -> float:
         wandb.log(scores_dict)
 
 
-    if config['use_wandb']:
-        percentile_scores(results)
-        wandb.log({'test metric': total_metric})
+    percentile_scores(results)
+    wandb.log({'test metric': total_metric})
 
     return total_metric
 

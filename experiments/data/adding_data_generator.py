@@ -43,7 +43,7 @@ def adding(sequences, base_length, min_len, max_len):
             pos_1, pos_2 = samples
 
         # fill in the relevant positions
-        y[pos_1] = y[pos_2] = 1
+        y[pos_1] = y[pos_2] = 1.0
         data = np.vstack([x, y]).T
         sequence_list.append(data)
 
@@ -51,7 +51,7 @@ def adding(sequences, base_length, min_len, max_len):
         label = 0.5 + (x[pos_1] + x[pos_2]) / 4
         labels.append(label)
         
-    df = pd.DataFrame(data={'sequence': sequence_list, 'labels': labels})
+    df = pd.DataFrame(data={'sequence': sequence_list, 'label': labels})
     return df
 
 

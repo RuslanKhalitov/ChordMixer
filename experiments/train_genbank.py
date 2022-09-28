@@ -3,13 +3,9 @@ from dataloader_utils import DatasetCreator, concater_collate
 from sklearn.model_selection import train_test_split
 from sklearn.utils.class_weight import compute_class_weight
 from sklearn.metrics import roc_auc_score, accuracy_score
-from binarymixer import BinaryMixerNet
-from clockwise_binarymixer import ClockwiseBinaryMixerNet
-from reverse_binarymixer import ReverseBinaryMixerNet
-from random_binarymixer import RandomBinaryMixerNet
-from bidirectional_binarymixer import BidirectionalBinaryMixerNet
 from chordmixer import ChordMixerNet
 
+import argparse
 import sys
 import ast
 import math
@@ -19,79 +15,92 @@ from torch.utils.data import Dataset, DataLoader
 import pandas as pd
 import numpy as np
 import wandb
+import yaml 
 
-
-config = {
-    'model': 'bidirectional_binarymixer', #binarymixer
-    'track_size': 16,
-    'variable_lengths': True,
-    'max_seq_len': 100062,
-    'vocab_size': 16,
-    'embedding_size': 480,
-    'base': 3,
-    'pos_embedding': False,
-    'hidden_size': 196,
-    'mlp_dropout': 0.0,
-    'head': 'linear', # 'linear'
-    'layer_dropout': 0.1,
-    'n_class': 2,
-    'lr': 0.0001,
-    'n_epochs': 100,
-    'batch_size': 2,
-    'device_id': 0,
-    'use_wandb': 1,
-    'search': 0,
-    
+tasks = {
+    'Carassius vs. Labeo':
+        {
+            'classes': ['Carassius', 'Labeo'],
+            'category_name': 'Other vertebrate',
+            'name_raw': 'gbvrt',
+            'max_seq_len': 100101
+        },
+    'Danio vs. Cyprinus':
+        {
+            'classes': ['Danio', 'Cyprinus'],
+            'category_name': 'Other vertebrate',
+            'name_raw': 'gbvrt',
+            'max_seq_len': 261943
+        },
+    'Mus vs. Rattus':
+        {
+            'classes': ['Mus', 'Rattus'],
+            'category_name': 'Rodent',
+            'name_raw': 'gbrod',
+            'max_seq_len': 261093
+        },
+    'Sus vs. Bos':
+        {
+            'classes': ['Sus', 'Bos'],
+            'category_name': 'Other mammalian',
+            'name_raw': 'gbmam',
+            'max_seq_len': 447010
+        },
 }
+problem_names = ['adding', 'genbank', 'longdoc']
 
-torch.cuda.set_device(config["device_id"])
-device = 'cuda:{}'.format(config['device_id']) if torch.cuda.is_available() else 'cpu'
+parser = argparse.ArgumentParser(description="experiments")
+parser.add_argument("--problem_class", type=str, default='genbank')
+parser.add_argument("--problem", type=str, default='Carassius vs. Labeo')
+parser.add_argument("--model", type=str, default='chordmixer')
+parser.add_argument("--device_id", type=int, default=0)
+parser.add_argument("--wandb", type=str, default='rusx')
+
+args = parser.parse_args()
+assert args.problem in tasks.keys(), f'Please use the correct problem name: {tasks.keys()}'
+assert args.problem_class == 'genbank', 'Please use the correct problem name: genbank'
+
+# Parsing training config
+stream = open("config.yaml", 'r')
+cfg_yaml = yaml.safe_load(stream)[args.problem_class][args.problem]
+training_config = cfg_yaml['training']
+print('training config', training_config)
+config = cfg_yaml['models'][args.model]
+print('model config', config)
+
+model = args.model
+
+# sys.exit()
+
+torch.cuda.set_device(args.device_id)
+device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu'
 print('set up device:', device)
 
-naming_log = f"Sus vs. Bos {config['model']}"
-data_train = pd.read_pickle('sus_bos_train_removed.pkl')
-data_test = pd.read_pickle('sus_bos_test_removed.pkl')
-print('max train seq:', max(data_train['len']))
-print('max test seq:', max(data_test['len']))
+# task variables
+classes = tasks[args.problem]['classes']
+data_train = pd.read_pickle(f'data/{classes[0]}_{classes[1]}_train.pkl')
+data_test = pd.read_pickle(f'data/{classes[0]}_{classes[1]}_test.pkl')
+max_seq_len = max(max(data_train['len']), max(data_test['len']))
 
-print(data_train.head())
-print(data_test.head())
-
-sys.exit()
+# sys.exit()
 #Wandb setting
-if config['use_wandb']:
-    if config['search']:
-        wandb.init(project="Mixer Search", entity="rusx", name=naming_log, config=config)
-        config = wandb.config
-    else:
-        wandb.init(project="Mixer Genbank", entity="rusx", name=naming_log)
-        wandb.config = config
+naming_log = f"{args.problem} {args.model}"
+wandb.init(project="Mixer Genbank", entity=args.wandb, name=naming_log)
+wandb.config = config
 
-if config['model'] == 'binarymixer':
-    net = BinaryMixerNet
-elif config['model'] == 'clockwise_binarymixer':
-    net = ClockwiseBinaryMixerNet
-elif config['model'] == 'reverse_binarymixer':
-    net = ReverseBinaryMixerNet
-elif config['model'] == 'random_binarymixer':
-    net = RandomBinaryMixerNet
-elif config['model'] == 'bidirectional_binarymixer':
-    net = BidirectionalBinaryMixerNet
-elif config['model'] == 'chordmixer':
+if args.model == 'chordmixer':
     net = ChordMixerNet
-
-net = net(
-    vocab_size=config['vocab_size'],
-    max_seq_len=config['max_seq_len'],
-    embedding_size=config['embedding_size'],
-    track_size = config['track_size'],
-    hidden_size=config['hidden_size'],
-    mlp_dropout=config['mlp_dropout'],
-    layer_dropout=config['layer_dropout'],
-    n_class=config['n_class'],
-    head=config['head'],
-    base=config['base']
-)
+    net = net(
+        problem='genbank',
+        vocab_size=config['vocab_size'],
+        max_seq_len=max_seq_len,
+        embedding_size=config['embedding_size'],
+        track_size = config['track_size'],
+        hidden_size=config['hidden_size'],
+        mlp_dropout=config['mlp_dropout'],
+        layer_dropout=config['layer_dropout'],
+        n_class=training_config['n_class']
+    )
 
 net = net.to(device)
 net.apply(init_weights)
@@ -106,9 +115,9 @@ loss = nn.CrossEntropyLoss(
     reduction='mean'
 )
 
-optimizer = optim.AdamW(
+optimizer = optim.Adam(
     net.parameters(),
-    lr=config['lr']
+    lr=config['learning_rate']
 )
 
 # Dataset preparation
@@ -123,27 +132,12 @@ trainset = DatasetCreator(
 trainloader = DataLoader(
     trainset,
     batch_size=config['batch_size'],
-    shuffle=False if config['variable_lengths'] else True,
+    shuffle=False,
     collate_fn=concater_collate,
     drop_last=False,
     num_workers=4
 )
 
-# Prepare the validation loader
-# valset = DatasetCreator(
-#     df=data_val,
-#     batch_size=config['batch_size'],
-#     var_len=True
-# )
-
-# valloader = DataLoader(
-#     valset,
-#     batch_size=config['batch_size'],
-#     shuffle=False,
-#     collate_fn=concater_collate,
-#     drop_last=False,
-#     num_workers=4
-# )
 
 # Prepare the testing loader
 testset = DatasetCreator(
@@ -162,11 +156,10 @@ testloader = DataLoader(
 )
 
 
-
-for epoch in range(config['n_epochs']):
+for epoch in range(training_config['n_epochs']):
     print(f'Starting epoch {epoch+1}')
-    train_epoch(config, net, optimizer, loss, trainloader, device=device, log_every=4000)
-    test_roc_auc = eval_model(config, net, testloader, metric=accuracy_score, device=device) 
+    train_epoch(config, net, optimizer, loss, trainloader, device=device, log_every=4000, problem='genbank')
+    test_roc_auc = eval_model(config, net, testloader, metric=roc_auc_score, device=device, problem='genbank') 
     print(f'Epoch {epoch+1} completed. Test accuracy: {test_roc_auc}')
         
     # torch.save(net.state_dict(), f'epoch_{epoch+1}_test_{test_roc_auc:.3f}.pt')
