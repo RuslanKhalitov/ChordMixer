@@ -9,7 +9,7 @@ Arxiv preprint: https://arxiv.org/abs/2206.05852
 
 ## Standalone ChordMixer implementation
 
-To apply ChordMixer architecture on your datasets, please use both chordmixer.py and dataloader_itils.py to ensure the correct batch construction.
+To apply ChordMixer architecture on your datasets, please use both chordmixer.py and dataloader_utils.py to ensure the correct batch construction.
 
 ## Datasets
 
@@ -28,10 +28,10 @@ python3 train_adding.py --problem_class adding --problem 1000 --model chordmixer
 python3 train_adding.py --problem_class adding --problem 16000 --model chordmixer --device_id 0 --wandb %yourusername%
 python3 train_adding.py --problem_class adding --problem 12800 --model chordmixer --device_id 0 --wandb %yourusername%
 
-python3 train_adding.py --problem_class genbank --problem 'Carassius vs. Labeo' --model chordmixer --device_id 0 --wandb %yourusername%
-python3 train_adding.py --problem_class genbank --problem 'Sus vs. Bos' --model chordmixer --device_id 0 --wandb %yourusername%
-python3 train_adding.py --problem_class genbank --problem 'Mus vs. Rattus' --model chordmixer --device_id 0 --wandb %yourusername%
-python3 train_adding.py --problem_class genbank --problem 'Danio vs. Cyprinus' --model chordmixer --device_id 0 --wandb %yourusername%
+python3 train_genbank.py --problem_class genbank --problem 'Carassius vs. Labeo' --model chordmixer --device_id 0 --wandb %yourusername%
+python3 train_genbank.py --problem_class genbank --problem 'Sus vs. Bos' --model chordmixer --device_id 0 --wandb %yourusername%
+python3 train_genbank.py --problem_class genbank --problem 'Mus vs. Rattus' --model chordmixer --device_id 0 --wandb %yourusername%
+python3 train_genbank.py --problem_class genbank --problem 'Danio vs. Cyprinus' --model chordmixer --device_id 0 --wandb %yourusername%
 
 python3 train_longdoc.py --problem_class longdoc --problem longdoc --model chordmixer --device_id 0 --wandb %yourusername%
 ```
