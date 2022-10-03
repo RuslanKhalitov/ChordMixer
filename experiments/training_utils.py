@@ -102,7 +102,11 @@ def eval_model(config, net, valloader, metric, device, problem) -> float:
         scores_dict = {}
         for i in sorted(df['bins'].unique()):
             data = df[df['bins'] == i]
-            scores_dict[f'test_bin_{i}'] = metric(data['predictions'], data['labels'])
+            try:
+                scores_dict[f'test_bin_{i}'] = metric(data['predictions'], data['labels'])
+            except:
+                "Can't calculate ROCAUC because only one class appears in the percentile"
+                scores_dict[f'test_bin_{i}'] = 0.5
         wandb.log(scores_dict)
 
 
