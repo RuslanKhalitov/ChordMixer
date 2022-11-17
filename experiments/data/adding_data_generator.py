@@ -81,6 +81,7 @@ def generator(base_length):
     bins = np.quantile(df['len'], percentiles)
     bin_labels = [i for i in range(len(bins) - 1)]
     df['bin'] = pd.cut(df['len'], bins=bins, labels=bin_labels)
+    df[['len']].to_csv(f'lenghts_{base_length}.csv', index=False)
     
     data_train, data_test = train_test_split(df, test_size=n_test+n_val, train_size=n_train)
     data_test, data_val = train_test_split(data_test, test_size=n_test, train_size=n_val)

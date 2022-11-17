@@ -161,3 +161,8 @@ cython_debug/
 
 *.pkl
 wandb/
+experiments/data/Invertebrate/
+experiments/data/Other mammalian/
+experiments/data/Primate/
+experiments/data/Rodent/
+experiments/data/Other vertebrate/

@@ -9,23 +9,32 @@ tasks = {
         {
             'classes': ['Carassius', 'Labeo'],
             'category_name': 'Other vertebrate',
+            'name_raw': 'gbvrt',
+            'max_seq_len': 100101
         },
     'Danio vs. Cyprinus':
         {
             'classes': ['Danio', 'Cyprinus'],
-            'category_name': 'Other vertebrate'
+            'category_name': 'Other vertebrate',
+            'name_raw': 'gbvrt',
+            'max_seq_len': 261943
         },
     'Mus vs. Rattus':
         {
             'classes': ['Mus', 'Rattus'],
-            'category_name': 'Rodent'
+            'category_name': 'Rodent',
+            'name_raw': 'gbrod',
+            'max_seq_len': 261093
         },
     'Sus vs. Bos':
         {
             'classes': ['Sus', 'Bos'],
-            'category_name': 'Other mammalian'
+            'category_name': 'Other mammalian',
+            'name_raw': 'gbmam',
+            'max_seq_len': 447010
         },
 }
+
 for task in tasks.keys():
     info = tasks[task]
     classes = info['classes']

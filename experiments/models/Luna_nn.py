@@ -23,7 +23,7 @@ class Luna(nn.Module):
             d_ff: int = 2048,
             dropout_p: float = 0.1,
             project_embedding_length: int = 32,
-            max_length: int = 1024,
+            max_length: int = 1024
     ):
         super(Luna, self).__init__()
         self.d_model = d_model
@@ -33,7 +33,6 @@ class Luna(nn.Module):
         self.projected_positions = PositionalEncoding(self.d_model, project_embedding_length)
         nn.init.normal_(self.projected_embeddings, mean=0.0, std=self.d_model ** -0.5)
 
-        self.input_embedding = nn.Linear(2, d_model)
         self.dropout = nn.Dropout(p=dropout_p)
         self.input_positions = PositionalEncoding(d_model, max_length)
 
@@ -55,7 +54,7 @@ class Luna(nn.Module):
 
         attention_padding_mask = get_attn_pad_mask(inputs, input_lengths, self.projected_embedding_length)
 
-        embedded = self.input_embedding(inputs)
+        embedded = inputs
 
         embedded *= self.embed_scale
         projected_embedded = self.projected_embeddings * self.embed_scale

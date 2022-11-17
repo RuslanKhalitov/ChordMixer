@@ -60,10 +60,10 @@ class Kernel_transformer(nn.Module):
         super(Kernel_transformer, self).__init__()
         self.use_cos = use_cos
         self.problem = problem
-        if self.problem == 'genbank':
-          self.emb_in = nn.Embedding(n_emb, d_model)
-        elif self.problem == 'adding':
+        if self.problem == 'adding':
           self.emb_in = nn.Linear(2, d_model)
+        else:
+          self.emb_in = nn.Embedding(n_emb, d_model)
         self.emb_pos = Positional_embeddings(d_model, max_len)
         self.max_len = max_len
 

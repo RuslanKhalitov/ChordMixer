@@ -1,0 +1,728 @@
+adding: 
+  '200': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 5
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 5
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0002
+        batch_size: 5
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 5
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 5
+  '1000': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 5
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 5
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0002
+        batch_size: 5
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 5
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 5
+  '16000': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 1
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 5
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 10
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 10
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 5
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0002
+        batch_size: 5
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 5
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 5
+  '128000': 
+    training:
+      loss: mse
+      n_class: 1
+      n_epochs: 25
+    models:
+      chordmixer:
+        vocab_size: 1
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 1
+      transformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 4
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 1
+      linformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0001
+        batch_size: 1
+      reformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 1
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 1
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 10
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0002
+        batch_size: 1
+      S4:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 1
+      luna:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 1
+        n_layers: 4
+        n_heads: 1
+        embedding_size: 32
+        learning_rate: 0.0005
+        batch_size: 1
+genbank: 
+  Sus vs. Bos:
+    training:
+      loss: cross-entropy
+      n_class: 2
+      n_epochs: 30
+    models:
+      chordmixer:
+        vocab_size: 20
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      transformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      linformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      reformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 4
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 4
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 4
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0002
+        batch_size: 4
+  Carassius vs. Labeo:
+    training:
+      loss: cross-entropy
+      n_class: 2
+      n_epochs: 30
+    models:
+      chordmixer:
+        vocab_size: 20
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      transformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      linformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      reformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 4
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0003
+        batch_size: 4
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0003
+        batch_size: 4
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0002
+        batch_size: 4
+  Mus vs. Rattus:
+    training:
+      loss: cross-entropy
+      n_class: 2
+      n_epochs: 30
+    models:
+      chordmixer:
+        vocab_size: 20
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      transformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      linformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      reformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 4
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+  Danio vs. Cyprinus:
+    training:
+      loss: cross-entropy
+      n_class: 2
+      n_epochs: 30
+    models:
+      chordmixer:
+        vocab_size: 20
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      transformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      linformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4
+      reformer:
+        pooling: flatten
+        truncation: 16000
+        segmented: False
+        vocab_size: 20
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 4
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 4
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0003
+        batch_size: 4
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 20
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0002
+        batch_size: 4
+longdoc: 
+  max:
+    training:
+      loss: cross-entropy
+      n_class: 4
+      n_epochs: 40
+    models:
+      chordmixer:
+        vocab_size: 4289
+        track_size: 16
+        embedding_size: 360
+        hidden_size: 196
+        mlp_dropout: 0
+        layer_dropout: 0
+        learning_rate: 0.0001
+        batch_size: 2
+      cosformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 4289
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 4
+      poolformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 4289
+        n_layers: 1
+        n_heads: 2
+        embedding_size: 64
+        learning_rate: 0.0005
+        batch_size: 4
+      nystromformer:
+        pooling: flatten
+        truncation: False
+        segmented: False
+        vocab_size: 4289
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
+        learning_rate: 0.0005
+        batch_size: 4  

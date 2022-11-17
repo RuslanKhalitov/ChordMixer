@@ -3,7 +3,7 @@
 
 import math
 from .mha_block import MHA_block, MHA_block_rezero
-from .utils import Positional_embeddings
+from utils import Positional_embeddings
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

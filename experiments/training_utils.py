@@ -42,8 +42,8 @@ def train_epoch(config, net, optimizer, loss, trainloader, device, log_every=50,
     num_batches = len(trainloader)
     for idx, (X, Y, length, bin) in tqdm(enumerate(trainloader), total=num_batches):
         if problem == 'adding':
-            X = X.float().to(device)
-            Y = Y.float().to(device)
+            X = X.to(device)
+            Y = Y.to(device)
             output = net(X, length).squeeze()
             output = loss(output, Y)
         else:
