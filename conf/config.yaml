@@ -1,0 +1,376 @@
+paths:
+  data: ${hydra:runtime.cwd}/data
+longdoc:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 4000
+        output_size: 4
+        max_seq_len: 131000
+        hidden_size: 196
+        embedding_type: 'sparse'
+        track_size: 16
+        mlp_dropout: 0.2
+        layer_dropout: 0.0
+        prenorm: None
+        norm: None
+        decoder: 'linear'
+      training:
+        n_epochs: 8
+        batch_size: 2
+        lr: 0.0001
+        weight_decay: 0.4
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 20000
+Carassius_Labeo:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 20
+        output_size: 2
+        max_seq_len: 100101
+        hidden_size: 128
+        embedding_type: 'sparse'
+        track_size: 16
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: None
+        norm: None
+        decoder: 'linear'
+      training:
+        n_epochs: 15
+        batch_size: 4
+        lr: 0.00015
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 10000
+Danio_Cyprinus:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 20
+        output_size: 2
+        max_seq_len: 261943
+        hidden_size: 128
+        embedding_type: 'sparse'
+        track_size: 16
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: None
+        norm: None
+        decoder: 'linear'
+      training:
+        n_epochs: 15
+        batch_size: 2
+        lr: 0.0001
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 4000
+Sus_Bos:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 20
+        output_size: 2
+        max_seq_len: 447010
+        hidden_size: 128
+        embedding_type: 'sparse'
+        track_size: 16
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: None
+        norm: None
+        decoder: 'linear'
+      training:
+        n_epochs: 20
+        batch_size: 2
+        lr: 0.0001
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 5000
+Mus_Rattus:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 20
+        output_size: 2
+        max_seq_len: 261093
+        hidden_size: 128
+        embedding_type: 'sparse'
+        track_size: 16
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: None
+        norm: None
+        decoder: 'linear'
+      training:
+        n_epochs: 30
+        batch_size: 2
+        lr: 0.0001
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 10000
+adding_200:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 2
+        output_size: 1
+        max_seq_len: 6700
+        hidden_size: 128
+        embedding_type: 'linear'
+        track_size: 16
+        mlp_dropout: 0.
+        layer_dropout: 0
+        prenorm: 'None'
+        norm: 'None'
+        decoder: 'linear'
+      training:
+        n_epochs: 20
+        batch_size: 20
+        lr: 0.0005
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 10000
+adding_1000:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 2
+        output_size: 1
+        max_seq_len: 31800
+        hidden_size: 128
+        embedding_type: 'linear'
+        track_size: 16
+        mlp_dropout: 0.
+        layer_dropout: 0
+        prenorm: 'None'
+        norm: 'None'
+        decoder: 'linear'
+      training:
+        n_epochs: 20
+        batch_size: 4
+        lr: 0.0003
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 30000
+adding_16000:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 2
+        output_size: 1
+        max_seq_len: 242400
+        hidden_size: 128
+        embedding_type: 'linear'
+        track_size: 16
+        mlp_dropout: 0.
+        layer_dropout: 0
+        prenorm: 'None'
+        norm: 'None'
+        decoder: 'linear'
+      training:
+        n_epochs: 20
+        batch_size: 2
+        lr: 0.0001
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 30000
+adding_128000:
+    chordmixer:
+      backbone:
+        var_len: True
+        input_size: 2
+        output_size: 1
+        max_seq_len: 1500000
+        hidden_size: 96
+        embedding_type: 'linear'
+        track_size: 10
+        mlp_dropout: 0.
+        layer_dropout: 0
+        prenorm: 'None'
+        norm: 'None'
+        decoder: 'linear'
+      training:
+        n_epochs: 25
+        batch_size: 2
+        lr: 0.0001
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 50000
+listops:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 20
+        output_size: 10
+        max_seq_len: 2048
+        hidden_size: 72
+        embedding_type: 'sparse'
+        track_size: 8
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: 'LN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 200
+        batch_size: 150
+        lr: 0.01
+        weight_decay: 0.02
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 50000
+image:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 1
+        output_size: 10
+        max_seq_len: 1024
+        hidden_size: 420
+        embedding_type: 'linear'
+        track_size: 28
+        mlp_dropout: 0
+        layer_dropout: 0
+        prenorm: 'BN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 120
+        batch_size: 100
+        lr: 0.01
+        weight_decay: 0.05
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 8000
+text:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 1000
+        output_size: 2
+        max_seq_len: 4096
+        hidden_size: 128
+        embedding_type: 'sparse'
+        track_size: 10
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: 'LN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 60
+        batch_size: 90
+        lr: 0.007
+        weight_decay: 0.001
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 5000
+retrieval:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 100
+        output_size: 2
+        max_seq_len: 4000
+        hidden_size: 128
+        embedding_type: 'sparse'
+        track_size: 20
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: 'LN'
+        norm: 'BN'
+        decoder: 'custom'
+      training:
+        n_epochs: 200
+        batch_size: 64
+        lr: 0.004
+        weight_decay: 0.001
+        scheduler: 'linear_warmup_pow2_decay'
+        n_warmup_steps: 50000
+pathfinder:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 1
+        output_size: 2
+        max_seq_len: 1024
+        hidden_size: 320
+        embedding_type: 'linear'
+        track_size: 24
+        mlp_dropout: 0
+        layer_dropout: 0
+        prenorm: 'BN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 150
+        batch_size: 150
+        lr: 0.005
+        weight_decay: 0.04
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 100000
+pathfinderx:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 1
+        output_size: 2
+        max_seq_len: 16384
+        hidden_size: 128
+        embedding_type: 'linear'
+        track_size: 10
+        mlp_dropout: 0
+        layer_dropout: 0
+        prenorm: 'BN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 100
+        batch_size: 120
+        lr: 0.001
+        weight_decay: 0.01
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 500
+pmnist:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 20
+        output_size: 10
+        max_seq_len: 2048
+        hidden_size: 88
+        embedding_type: 'linear'
+        track_size: 8
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: 'LN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 7
+        batch_size: 64
+        lr: 0.01
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 30000
+scifar:
+    chordmixer:
+      backbone:
+        var_len: False
+        input_size: 20
+        output_size: 10
+        max_seq_len: 2048
+        hidden_size: 88
+        embedding_type: 'linear'
+        track_size: 8
+        mlp_dropout: 0.1
+        layer_dropout: 0
+        prenorm: 'LN'
+        norm: 'BN'
+        decoder: 'linear'
+      training:
+        n_epochs: 7
+        batch_size: 64
+        lr: 0.01
+        weight_decay: 0.1
+        scheduler: 'linear_warmup_cosine_decay'
+        n_warmup_steps: 30000
