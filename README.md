@@ -1,5 +1,7 @@
 # ChordMixer: A Scalable Neural Attention Model For Sequences With Different Lengths [Accepted to ICLR'23]
 
+[OpenReview](https://openreview.net/forum?id=E8mzu3JbdR)
+
 ## ChordMixer Architecture 
 ChordMixer Network is a stack of ChordMixer blocks. Each of them applies two simple tensor operations on input sequences.
 1. **Rotate** step. A parameter-free module that circularly rotates sequence channels.
