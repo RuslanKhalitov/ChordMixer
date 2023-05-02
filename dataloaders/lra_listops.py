@@ -13,7 +13,7 @@ import pytorch_lightning as pl
 import torchtext
 from datasets import load_dataset, DatasetDict
 
-from .utils.collators import collate_batch_pad
+from .utils.collators import collate_batch
 
 # LRA tokenizer renames ']' to 'X' and delete parentheses as their tokenizer removes
 # non-alphanumeric characters.
@@ -61,7 +61,7 @@ class ListOpsDataModule(pl.LightningDataModule):
             dataset["test"],
         )
 
-        self.collate_fn = collate_batch_pad
+        self.collate_fn = collate_batch
         print('ID OF PADDING', self.vocab["<pad>"])
         print('ITOS', self.vocab.get_itos())
         print('STOI', self.vocab.get_stoi())

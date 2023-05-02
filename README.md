@@ -22,14 +22,15 @@ We get competitive results on a public benchmark. SOTA on **Pathfinder** and **P
 | Rerformer        | 37.27 | 56.10 | 38.07 | 53.40 | 68.50 | ✗ |
 | Performer        | 18.01 | 65.40 | 42.77 | 53.82 | 77.05 | ✗ | 
 | Nyströmformer    | 37.15 | 65.52 | 41.58 | 79.56 | 70.94 | ✗ |
-| S4               | 59.60 | 86.82 | 88.65 | *90.90* | 94.20 | 96.35 |
+| S4               | 59.60 | 86.82 | 88.65 | 90.90 | 94.20 | 96.35 |
 | Mega             | **63.14** | **90.43** | **90.44** | **91.25** | 96.01 | 97.98 |
 |                  |
-| **ChordMixer**   | *[59.89](https://api.wandb.ai/links/rusx/kb9ydn5g)* | *[88.87](https://api.wandb.ai/links/rusx/9e7oizh6)* | *[89.95](https://api.wandb.ai/links/rusx/rk6dt1bt)* | [90.38](https://api.wandb.ai/links/rusx/b9dbjno1) | **[96.67](https://api.wandb.ai/links/rusx/rgi146h9)** | **[98.63](https://api.wandb.ai/links/rusx/empk7dj8)** |
+| **ChordMixer**   | [59.89](https://api.wandb.ai/links/rusx/kb9ydn5g) | [88.87](https://api.wandb.ai/links/rusx/9e7oizh6) | *[89.95](https://api.wandb.ai/links/rusx/rk6dt1bt)* | [90.38](https://api.wandb.ai/links/rusx/b9dbjno1) | **[96.67](https://api.wandb.ai/links/rusx/rgi146h9)** | **[98.63](https://api.wandb.ai/links/rusx/empk7dj8)** |
 
 ### Insanely long sequences
 
 ChordMixer shows great performance on extremely long sequences with high length variability. We designed experiments with sequences within different domains, such as arithmetic operations, text, and DNA. We demonstrate lengths up to 1.5M in our experiments. 
+
 <img src="https://github.com/RuslanKhalitov/ChordMixer/blob/main/figures/genbank_git.png" width="690">
 
 ## Updates

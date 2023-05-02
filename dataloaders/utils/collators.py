@@ -9,6 +9,15 @@ def collate_batch_pad(batch, pad_value=0):
     )
     return xs, ys, lengths
 
+def collate_batch(batch, pad_value=0):
+    xs, ys = zip(*[(data["sequence"], data["label"]) for data in batch])
+    lengths = torch.tensor([len(x) for x in xs])
+    xs = nn.utils.rnn.pad_sequence(
+        xs, padding_value=pad_value, batch_first=True
+    )
+    ys = torch.tensor(ys)
+    return xs, ys, lengths
+
 # def collate_batch_horizontal(batch):
 #     xs, ys, lengths = zip(*[(data["sequence"], data["label"], data["len"]) for data in batch])
 #     xs = torch.cat(xs, 0)
