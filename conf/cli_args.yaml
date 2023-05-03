@@ -5,7 +5,7 @@ model: chordmixer
 diff_len: True
 metric: acc
 loss: crossentropy
-data_dir: /lhome/ruslank/ChordMixerPL/data/longdoc
-ckpt_dir: /lhome/ruslank/ChordMixerPL/checkpoints
-num_workers: 2
+data_dir: .
+ckpt_dir: .
+num_workers: 8
 n_devices: -1
