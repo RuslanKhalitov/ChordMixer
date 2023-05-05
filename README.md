@@ -108,11 +108,13 @@ Kudos to the HazyResearch team for publicly sharing their well-structured code. 
 If you use this codebase, datasets, or paper. Please cite us as
 
 ```bibtex
-@article{khalitov2022chordmixer,
-  title={ChordMixer: A Scalable Neural Attention Model for Sequences with Different Lengths},
-  author={Khalitov, Ruslan and Yu, Tong and Cheng, Lei and Yang, Zhirong},
-  journal={arXiv preprint arXiv:2206.05852},
-  year={2022}
+@inproceedings{
+khalitov2023chordmixer,
+title={ChordMixer: A Scalable Neural Attention Model for Sequences with Different Length},
+author={Ruslan Khalitov and Tong Yu and Lei Cheng and Zhirong Yang},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+url={https://openreview.net/forum?id=E8mzu3JbdR}
 }
 ```
 
