@@ -249,23 +249,23 @@ text:
         input_size: 1000
         output_size: 2
         max_seq_len: 4096
-        hidden_size: 128
+        hidden_size: 96
         embedding_type: 'sparse'
-        track_size: 10
+        track_size: 16
         mlp_dropout: 0.1
         layer_dropout: 0
         prenorm: 'LN'
         norm: 'BN'
         decoder: 'linear'
       training:
-        n_epochs: 60
+        n_epochs: 90
         batch_size: 90
         lr: 0.007
-        weight_decay: 0.001
+        weight_decay: 0.04
         scheduler: 'linear_warmup_cosine_decay'
-        n_warmup_steps: 5000
+        n_warmup_steps: 15000
 retrieval:
-    chordmixer:
+    chordmixer: 
       backbone:
         var_len: False
         input_size: 100
