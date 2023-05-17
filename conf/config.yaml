@@ -205,7 +205,7 @@ listops:
         input_size: 20
         output_size: 10
         max_seq_len: 2048
-        hidden_size: 72
+        hidden_size: 88
         embedding_type: 'sparse'
         track_size: 8
         mlp_dropout: 0.1
