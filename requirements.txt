@@ -13,3 +13,4 @@ torchmetrics
 torchtext
 torchvision
 tqdm
+wandb
