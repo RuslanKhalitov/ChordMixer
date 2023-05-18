@@ -379,15 +379,8 @@ def cli_main(cfg: OmegaConf):
     # ------------
     
     wandb_logger = WandbLogger(project=f"{cfg.problem}_{cfg.model}", log_model="all", offline=False)
-    checkpoint_path = f"{cfg.ckpt_dir}/{cfg.problem}_{cfg.model}"
     callbacks_for_trainer = [
         TQDMProgressBar(refresh_rate=10), 
-        ModelCheckpoint(
-            dirpath=checkpoint_path,
-            filename='{epoch}-{val_loss:.2f}',
-            monitor="val_loss",
-            mode="min"
-        ),
         LearningRateMonitor(logging_interval="step")
     ]
     
@@ -395,8 +388,7 @@ def cli_main(cfg: OmegaConf):
         fast_dev_run=False,
         gradient_clip_val=1.,
         accelerator='gpu',
-        # devices=cfg.n_devices,
-        devices=[1],
+        devices=cfg.n_devices,
         strategy='dp',
         enable_progress_bar=True,
         max_epochs=training_config.n_epochs,
