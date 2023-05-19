@@ -51,9 +51,9 @@ Danio_Cyprinus:
         input_size: 20
         output_size: 2
         max_seq_len: 261943
-        hidden_size: 128
+        hidden_size: 96
         embedding_type: 'sparse'
-        track_size: 16
+        track_size: 12
         mlp_dropout: 0.1
         layer_dropout: 0
         prenorm: None
@@ -73,9 +73,9 @@ Sus_Bos:
         input_size: 20
         output_size: 2
         max_seq_len: 447010
-        hidden_size: 128
+        hidden_size: 96
         embedding_type: 'sparse'
-        track_size: 16
+        track_size: 8
         mlp_dropout: 0.1
         layer_dropout: 0
         prenorm: None
@@ -95,9 +95,9 @@ Mus_Rattus:
         input_size: 20
         output_size: 2
         max_seq_len: 261093
-        hidden_size: 128
+        hidden_size: 96
         embedding_type: 'sparse'
-        track_size: 16
+        track_size: 12
         mlp_dropout: 0.1
         layer_dropout: 0
         prenorm: None
