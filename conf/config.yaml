@@ -183,9 +183,9 @@ adding_128000:
         input_size: 2
         output_size: 1
         max_seq_len: 1500000
-        hidden_size: 96
+        hidden_size: 88
         embedding_type: 'linear'
-        track_size: 10
+        track_size: 8
         mlp_dropout: 0.
         layer_dropout: 0
         prenorm: 'None'
