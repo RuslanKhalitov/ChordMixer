@@ -488,4 +488,5 @@ class ChordMixerNoDec(nn.Module):
     def forward(self, x, lengths=None):
         x = self.embedding(x)
         x = self.encoder(x, lengths)
+        x = torch.mean(x, dim=1)
         return x

@@ -240,7 +240,7 @@ class LitMixerRetrieval(pl.LightningModule):
         self.training_config = self.hparams.training
         self.args = args
         self.backbone = backbone(**self.model_config)
-        dim = int(12 * self.model_config.track_size)
+        dim = int(13 * self.model_config.track_size)
         self.backbone = NetDual(
             backbone=self.backbone,
             dim=dim,
